@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="pop_size">24dp</dimen>
+    <dimen name="pop_circle_width">2dp</dimen>
+    <dimen name="inner_padding">4dp</dimen>
+</resources>
