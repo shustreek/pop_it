@@ -11,6 +11,7 @@
         android:id="@+id/update_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
         android:padding="16dp"
         android:src="@drawable/ic_update"
         app:layout_constraintEnd_toStartOf="@id/field"

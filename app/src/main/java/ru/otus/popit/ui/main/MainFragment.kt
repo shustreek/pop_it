@@ -21,6 +21,17 @@ class MainFragment : Fragment() {
     private lateinit var binding: MainFragmentBinding
     private val viewModel: MainViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        try {
+            val fd = requireContext().assets.openFd("pop.wav")
+            viewModel.initSound(fd)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +42,8 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.updateBtn.setOnClickListener { viewModel.onUpdateClick() }
 
         viewModel.state.observe(viewLifecycleOwner) {
             binding.field.removeAllViews()
@@ -55,6 +68,13 @@ class MainFragment : Fragment() {
                 binding.field.addView(item, params)
             }
         }
-    }
+        viewModel.cellStateByIndex.observe(viewLifecycleOwner) {
+            val (index, state) = it
+            binding.field.getChildAt(index).isEnabled = state
+        }
+        viewModel.timerState.observe(viewLifecycleOwner) {
+            binding.timer.text = String.format("%.1f", it)
+        }
 
+    }
 }
